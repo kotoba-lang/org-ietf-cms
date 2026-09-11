@@ -63,8 +63,8 @@ with one algorithm gets checked with another.
 ## Test
 
 ```bash
-clojure -M:test    # against SignedData OpenSSL produced, attached and detached
-clojure -M:lint
+kbb -M:test    # against SignedData OpenSSL produced, attached and detached
+kbb -M:lint
 ```
 
 Apache-2.0.
