@@ -5,7 +5,7 @@
   The tampering tests matter more than the happy path. A CMS verifier that never
   compares `messageDigest` to the content passes every positive test ever
   written for it, because the signature over `signedAttrs` really is valid."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [asn1.core :as asn1]
             [asn1.oid :as oid]
             [cms.core :as cms]
