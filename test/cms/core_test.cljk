@@ -5,7 +5,7 @@
   The tampering tests matter more than the happy path. A CMS verifier that never
   compares `messageDigest` to the content passes every positive test ever
   written for it, because the signature over `signedAttrs` really is valid."
-  (:require [kotoba.test :refer [deftest is testing]]
+  (:require [kotoba.lang.error :as kerror] [kotoba.test :refer [deftest is testing]]
             [asn1.core :as asn1]
             [asn1.oid :as oid]
             [cms.core :as cms]
@@ -151,7 +151,7 @@
                                        (update a :values conj (asn1/octet-string [0x00]))
                                        a))
                                    attrs)))]
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo #"exactly one value"
+    (is (thrown-with-msg? kerror/ExceptionInfo #"exactly one value"
                           (cms/verify doubled opts)))))
 
 (deftest a-tampered-signature-does-not-verify
@@ -233,7 +233,7 @@
     (is (nil? (:cms/econtent reparsed)))))
 
 (deftest the-jvm-verifier-refuses-an-algorithm-it-cannot-name
-  (is (thrown-with-msg? clojure.lang.ExceptionInfo #"unsupported signature algorithm"
+  (is (thrown-with-msg? kerror/ExceptionInfo #"unsupported signature algorithm"
                         (jvm/verify {:algorithm nil :algorithm-oid "1.2.3.4"
                                      :public-key nil :signed [] :signature []})))
   (testing "and says why a retired one is retired rather than only 'unsupported'"
